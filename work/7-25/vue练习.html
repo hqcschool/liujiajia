@@ -5,17 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="../common/vue.js"></script>
+    <script src="../../common/vue.js"></script>
 </head>
 
 <body>
     <div id="box">{{message}}</div>
+    <div id="box1">{{message}}</div>
     <script>
-        const domBox = document.querySelector("#box");
+        // Vue.config.productionTip = false,
         new Vue({
-            el: domBox,
+            el: "#box",
             data: {
                 message: "你好vue"
+            }
+        })
+        new Vue({
+            el: '#box1',
+            data: {
+                message: "你好vue111"
             }
         })
     </script>
