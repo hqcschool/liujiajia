@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../common/vue.js"></script>
+    <script src="../../common/jQuery/jquery-3.7.0.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: rgb(238, 216, 216);
+        }
+
+        #box {
+            width: 80%;
+            height: 100%;
+            position: relative;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            color: rgb(6, 123, 84);
+            margin: auto;
+            background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            margin-top: 80px;
+            padding: 50px;
+            border-radius: 25px;
+        }
+
+        table {
+            width: 100%;
+            height: 100%;
+            border-collapse: collapse;
+            border-color: white;
+            margin: auto;
+        }
+
+        button {
+            background-image: linear-gradient(90deg, #ffecd2 0%, #fcb69f 100%);
+            border-color: white;
+            padding: 5px 10px;
+            border-radius: 8px;
+            margin: 5px;
+            color: rgb(6, 123, 84);
+        }
+
+        tr {
+            height: 50px;
+        }
+
+        th {
+            width: 200px;
+        }
+
+        #box1 {
+            width: 250px;
+            text-align: center;
+            height: 180px;
+            background-color: #ff9a9e;
+            border-radius: 25px;
+            padding: 20px;
+            position: absolute;
+            z-index: 2;
+            left: 0;
+            bottom: 0;
+            top: -200px;
+            right: 0;
+            margin: auto;
+            display: none;
+        }
+
+        input {
+            padding: 5px 8px;
+            border-radius: 15px;
+            margin: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bo">
+        <form action="#" name="carsare" id="box1">
+            I D:<input type="text" v-model="id" id="id" name="id"><br>
+            姓名:<input type="text" v-model="name" id="name" name="name"><br>
+            年龄:<input type="text" v-model="age" id="age" name="age"><br>
+            <button id="xiugai" @click="xiu()">修改</button>
+            <button id="tijiao" @click="tijiao()">提交</button>
+            <button id="quxiao">取消</button>
+
+        </form>
+        <div id="box">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>姓名</th>
+                        <th>年龄</th>
+                        <th>
+                            <button>操作</button>
+                            <button @click="change()">新增</button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item,index) in obj" :key="index">
+                        <th>{{item.id}}</th>
+                        <th>{{item.name}}</th>
+                        <th>{{item.age}}</th>
+                        <th>
+                            <button @click="change1(index)">删除</button>
+                            <button @click="change2(index)">修改</button>
+                            <button @click="change3(index)">查看</button>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: "#bo",
+            data: {
+                obj: [
+                    { id: 1, name: '张', age: 36 },
+                    { id: 2, name: '李', age: 32 },
+                    { id: 3, name: '王', age: 28 }
+                ],
+                id: "",
+                name: "",
+                age: "",
+            },
+
+            methods: {
+                change() {
+                    $("#box1").css("display", "block");
+                    $("#xiugai").css("display", "none");
+                    $("#tijiao").css("display", "inline-block");
+                    $("#id").val("");
+                    $("#name").val("");
+                    $("#age").val("")
+                },
+                //删除
+                change1(index) {
+                    console.log(index);
+                    if (confirm("确认删除")) {
+                        this.obj.splice(index, 1);
+                    }
+                },
+                //修改
+                change2(index) {
+                    console.log(index);
+                    $("#xiugai").css("display", "inline-block");
+                    $("#tijiao").css("display", "none");
+                    this.index = index;
+                    $("#box1").css("display", "block");
+                    this.id = this.obj[index].id
+                    this.name = this.obj[index].name
+                    this.age = this.obj[index].age
+                },
+                xiu() {
+                    event.preventDefault();
+                    this.obj[this.index].id = this.id
+                    this.obj[this.index].name = this.name
+                    this.obj[this.index].age = this.age
+                },
+                //查看
+                change3(index) {
+                    $("#box1").css("display", "block");
+                    $("#xiugai").css("display", "none");
+                    $("#tijiao").css("display", "none");
+                    this.id = this.obj[index].id
+                    this.name = this.obj[index].name
+                    this.age = this.obj[index].age
+                },
+
+                //添加
+                tijiao() {
+                    event.preventDefault();
+                    let data = {
+                        id: $("#id").val(),
+                        name: $("#name").val(),
+                        age: $("#age").val(),
+                    }
+
+                    console.log(data);
+                    this.obj.push(data)
+                    console.log(this.obj);
+                    $("#box1").css("display", "none");
+                    $("#id").val("")
+                    $("#name").val("")
+                }
+            },
+        });
+        $("#quxiao").on("click", function () {
+            event.preventDefault();
+            $("#box1").css("display", "none");
+        })
+
+    </script>
+</body>
+
+</html>
+<!-- 日报
+今日学习:vue键盘事件
+今日问题:回显数据
+今日任务:完成60% -->

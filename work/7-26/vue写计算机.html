@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../common/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <input type="text" placeholder="请输入第一个数" v-model.number="number1" />
+        <select v-model="opt">
+            <option>+</option>
+            <option>-</option>
+            <option>*</option>
+            <option>/</option>
+        </select>
+        <input type="text" placeholder="请输入第二个数" v-model.number="number2" />
+        <button @click="change">=</button><br>
+        <b>结果: {{ result }}</b>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#box",
+            data: {
+                number1: "",
+                number2: "",
+                result: "",
+                opt: "",
+            },
+            methods: {
+                change() {
+                    switch (this.opt) {
+                        case "+":
+                            this.result = this.number1 + this.number2
+                            break;
+                        case "-":
+                            this.result = this.number1 - this.number2
+                            break;
+                        case "*":
+                            this.result = this.number1 * this.number2
+                            break;
+                        case "/":
+                            this.result = this.number1 / this.number2
+                            break;
+                    }
+                }
+            }
+        })
+
+
+
+
+
+
+
+
+
+
+        // var vm = new Vue({
+        //     el: "#box",
+        //     data: {
+        //         number1: "",
+        //         number2: "",
+        //         result: "",
+        //         opt: ""
+        //     },
+        //     watch: {
+        //         number1: function (num1) {
+        //             switch (this.opt) {
+        //                 case "+":
+        //                     this.result = num1 + this.number2;
+        //                     break;
+        //                 case "-":
+        //                     this.result = num1 - this.number2;
+        //                     break;
+        //                 case "*":
+        //                     this.result = num1 * this.number2;
+        //                     break;
+        //                 case "/":
+        //                     this.result = num1 / this.number2;
+        //                     break;
+        //             }
+        //         },
+        //         number2: function (num2) {
+        //             switch (this.opt) {
+        //                 case "+":
+        //                     this.result = this.number1 + num2;
+        //                     break;
+        //                 case "-":
+        //                     this.result = this.number1 - num2;
+        //                     break;
+        //                 case "*":
+        //                     this.result = this.number1 * num2;
+        //                     break;
+        //                 case "/":
+        //                     this.result = this.number1 / num2;
+        //                     break;
+        //             }
+        //         },
+        //         opt: function () {
+        //             switch (this.opt) {
+        //                 case "+":
+        //                     this.result = this.number1 + this.number2;
+        //                     break;
+        //                 case "-":
+        //                     this.result = this.number1 - this.number2;
+        //                     break;
+        //                 case "*":
+        //                     this.result = this.number1 * this.number2;
+        //                     break;
+        //                 case "/":
+        //                     this.result = this.number1 / this.number2;
+        //                     break;
+        //             }
+        //         }
+        //     }
+        // });
+
+    </script>
+</body>
+
+</html>

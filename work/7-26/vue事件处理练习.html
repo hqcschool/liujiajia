@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../common/vue.js"></script>
+</head>
+
+<body>
+    <!-- <div id="app">
+        <a href="https://www.baidu.com/" @click="jump">百度</a>
+       这里也可以进行简写
+       <button @click="show1">点击</button>
+    </div> -->
+    <!-- <div id="app">
+        <div id="wai" @click.capture="jump()" style="width: 300px;height: 200px;background-color: aqua;padding: 50px;">1
+            <div id="nei" @click="jump2()" style="width: 150px;height: 100px;background-color: brown;">
+                2
+            </div>
+        </div>
+        <button @click.once="dian()">第三方</button>
+        <div style="width: 150px;height: 100px;background-color: rgb(63, 14, 14);">
+            <button @click="showInfo1()">点我天hi薪资</button>
+        </div>
+    </div> -->
+    <div id="app">
+        <div @scroll="fun"
+            style="width: 300px;height: 250px;text-align: center;background-color: brown;overflow: auto;">
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+            <p>11111111</p>
+        </div>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {},
+            methods: {
+                fun() {
+                    console.log(45);
+                }
+            }
+        });
+// jump() {
+//                     console.log("外");
+//                 },
+//                 jump2() {
+//                     console.log("内");
+//                 },
+//                 dian() {
+//                     console.log('789');
+//                 },
+//                 showInfo1() {
+//                     console.log("546");
+//                 }
+
+        // waiceng = document.getElementById("wai")
+        // waiceng.addEventListener("click", function (event) {
+        //     console.log("外层");
+        // }, true)
+        // neiceng = document.getElementById("nei")
+        // neiceng.addEventListener("click", function (event) {
+        //     // event.stopPropagation();
+        //     console.log("内层");
+        // }, true)
+        // const vm = new Vue({
+        //     el: "#app",
+        //     data: {},
+        //     methods: {
+        //         jump() {
+        //             event.preventDefault()
+        //             console.log(546);
+        //         }
+        //     }
+        // });
+
+        // new Vue({
+        //     el: "#app",
+        //     methods: {
+        //         show() {
+        //             // alert("hello");
+        //             console.log(123);
+        //             // this.show1
+        //         },
+        //         show1() {
+        //             console.log(456789);
+        //         }
+        //     },
+        // });
+    </script>
+</body>
+
+</html>

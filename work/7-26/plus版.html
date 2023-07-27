@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<head>
+    <script src="../../common/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <table border="1" cellspacing="0" cellpadding="20">
+            <tr>
+                <th>序号</th>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>操作 |<button @click="addHero">新增</button></th>
+            </tr>
+            <tr v-for="hero in heroList" :key="hero.id">
+                <td>{{hero.id}}</td>
+                <td>{{hero.name}}</td>
+                <td>{{hero.age}}</td>
+                <td><button @click="deleteHero(hero.id)">删除</button>|<button @click="edit(hero.id)">修改</button>
+        </table>
+        <div v-show="isInputShow">
+            <h3>新增英雄</h3>
+            <input type="text" v-model="hero.id " placeholder="请输入序号"><br><br>
+            <input type="text" v-model="hero.name " placeholder="请输入姓名"><br><br>
+            <input type="number" v-model="hero.age" placeholder="请输入年龄"><br><br>
+            <input type="submit" @click="insertHero" value="关闭"> <br><br>
+        </div>
+        <div v-show="isUpdateShow">
+            <h3>修改英雄</h3>
+            <input type="text" v-model="hero.id " placeholder="请输入序号"><br><br>
+            <input type="text" v-model="hero.name " placeholder="请输入姓名"><br><br>
+            <input type="number" v-model="hero.age" placeholder="请输入年龄"><br><br>
+            <input type="reset" @click="editHero" value="关闭"><br><br>
+        </div>
+
+    </div>
+
+</body>
+<script>
+
+    new Vue(
+        {
+            el: '#app',
+            data: {
+                //控制表单隐藏和显示
+                isInputShow: false,
+                isUpdateShow: false,
+                //双向绑定实现表单数据获取
+                hero: {
+                    id: '',
+                    name: '',
+                    age: ''
+                },
+                heroList: [
+                    { id: 1, name: '曹操', age: 36 },
+                    { id: 2, name: '刘备', age: 32 },
+                    { id: 3, name: '孙权', age: 28 }
+                ]
+            },
+            methods: {
+                deleteHero(id) {
+                    this.heroList = this.heroList.filter((e, i) => {
+                        return e.id != id
+                    })
+                },
+                addHero() {
+                    this.isInputShow = !this.isInputShow
+                },
+                insertHero() {
+                    this.heroList.push(this.hero)
+                    console.log(this.hero)
+                },
+                edit(id) {
+                    this.isUpdateShow = true
+                    this.hero = this.heroList.find((e, i) => {
+                        return e.id == id
+                    })
+                },
+                editHero(n) {
+                    if (this.isUpdateShow)
+                        this.isInputShow = !this.isInputShow
+                    this.isUpdateShow = !this.isUpdateShow
+                    this.i = n - 1
+                }
+            }
+        }
+    )
+</script>
+
+</html>
