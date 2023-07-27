@@ -9,22 +9,19 @@
 </head>
 
 <body>
-    <div id="box">{{message}}</div>
-    <div id="box1">{{message}}</div>
+    <div id="app">{{msg}} </br>
+        <input type='text' v-model:value="val"></br>
+        <a v-bind:href="url">百度</a>
+    </div>
     <script>
-        // Vue.config.productionTip = false,
         new Vue({
-            el: "#box",
+            el: "#app",
             data: {
-                message: "你好vue"
-            }
-        })
-        new Vue({
-            el: '#box1',
-            data: {
-                message: "你好vue111"
-            }
-        })
+                msg: "nihao",
+                val: "ikun",
+                url: "http://baidu.com"
+            },
+        });
     </script>
 </body>
 

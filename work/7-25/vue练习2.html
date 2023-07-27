@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../common/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">{{$options}}
+        <input type='text' v-bind:value="val">
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                val: "ikun",
+                ikun: "蔡徐坤",
+            },
+        });
+        // console.log(vm);
+        // let number = 19;
+        // var person = {
+        //     name: "张三",
+        //     sex: "男",
+        // };
+        // person.name = "李四";
+        // //通过defineProperty给person对象添加一个age属性值为19
+        var number = "19";
+        var obj = {
+            x: "张三111",
+        };
+        var obj2 = {
+            y: "张三222",
+        };
+        Object.defineProperty(obj2, "age", {
+            get() {
+                return obj.x;
+            },
+            set(v) {
+                obj.x = v;
+            }
+            // value: 19,
+            // enumerable: true, //控制属性是否可以枚举,默认值为false
+            // writable: true, //控制属性是否可以被修改,默认值为false
+            // configurable: true, //控制属性是否可以被删除,默认值为false
+        });
+        console.log(obj);
+        console.log(obj2);
+        // person.age = 99;
+        // delete person.age;
+        // for (let key in person) {
+        //     console.log(key);
+        // }
+        // number = 20;
+        console.log(person);
+        console.log(Object.keys(person));//提取对象的所有属性,变成一个数组.
+    </script>
+</body>
+
+</html>
