@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../common/vue.js"></script>
+    <script src="../../common/jQuery/jquery-3.7.0.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: rgb(245, 245, 245);
+        }
+
+        #app {
+            width: 1090px;
+            height: 700px;
+            background-color: rgb(255, 255, 255);
+            margin: auto;
+            border: 1px solid white;
+            margin-bottom: 50px;
+        }
+
+        .a1 {
+            width: 230px;
+            height: 310px;
+            display: inline-block;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid rgb(240, 240, 240);
+            background-color: rgb(255, 255, 255);
+        }
+
+        .a1:hover {
+            border: 1px solid rgb(219, 105, 204);
+        }
+
+        h5,
+        h6 {
+            display: inline-block;
+        }
+
+        dd {
+            width: 220px;
+            height: 220px;
+        }
+
+        dt {
+            margin: 10px;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        h5 {
+            background-image: -webkit-linear-gradient(180deg, #e456ff 0, #ff31a3 100%);
+            padding: 3px;
+            color: aliceblue;
+            border-radius: 10px;
+        }
+
+        s,
+        h6 {
+            color: gray;
+        }
+
+        .a2 {
+            font-size: 8px;
+            margin-top: 5px;
+            color: rgb(63, 50, 50);
+        }
+
+        /* strong {
+            padding: 2px 4px;
+            margin-top: 5px;
+            background-color: rgb(202, 246, 211);
+            border-radius: 8px;
+            color: rgb(26, 203, 144);
+        } */
+        #spp {
+            width: 100%;
+            height: 300px;
+            background-color: rgb(255, 255, 255);
+            margin: auto;
+            margin-top: 100px;
+            margin-bottom: 300px !important;
+
+        }
+
+        #pen {
+            width: 100%;
+            height: 50px;
+            border-bottom: 1px solid gray;
+        }
+
+        #pen span {
+            padding-left: 10px;
+            width: 100px;
+            height: 96%;
+            color: #DB327F;
+            line-height: 50px;
+            display: block;
+            border-bottom: 3px solid #DB327F;
+        }
+
+        table {
+            position: relative;
+            top: 20px;
+            width: 100%;
+
+            border-collapse: collapse;
+            border-color: rgb(144, 144, 144);
+            margin: auto;
+        }
+
+        tr {
+            width: 100%;
+
+        }
+
+        th,
+        td {
+            width: 200px;
+
+            text-align: center;
+        }
+
+        td img {
+            width: 150px;
+
+        }
+
+        button {
+            text-align: center;
+
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="a1" v-for="(item,index) in obj" :key="index" @click="shangpin(index)">
+            <dl>
+                <dd>
+                    <img :src="item.img">
+                </dd>
+                <dt>
+                    <div>
+                        <h5>特卖价</h5> <b>￥{{item.jiange}}</b> <s>￥{{item.cengmaijia}}</s>
+                        <h6>{{item.zhekou}}</h6>
+                    </div>
+                    <div class="a2">
+                        <p>{{item.pingjia}}</p>
+                        <!-- <strong>{{item.biaoqian}}</strong> -->
+                    </div>
+                </dt>
+            </dl>
+        </div>
+
+        <div id="spp">
+            <div id="pen">
+                <span>
+                    特卖商品
+                </span>
+            </div>
+            <table border="1" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>商品</th>
+                        <th>单价</th>
+                        <th>数量</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item,index) in obj1" :key="index">
+                        <td><input type="checkbox" @click="xuanzhong(index)"></td>
+                        <td>
+                            <img :src="item.img"><br>
+                            {{item.pingjia}}
+                        </td>
+                        <td style="font-size: 25px;color: #f302c3;">{{item.jiange}}</td>
+                        <td>
+                            <button class="button" @click="shuliangjian(index)">-</button>
+                            {{item.goumai}}
+                            <button class="button" @click="shuliangjia(index)">+</button>
+                        </td>
+                        <td>
+                            <button @click="shanchu(index)">删除</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td></td>
+                        <td colspan="2">合计：
+                            <b style="font-size: 25px;color: #f302c3;">
+                                ￥&nbsp;&nbsp;&nbsp;{{}}
+                            </b>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                obj: [
+                    {
+                        id: 1,
+                        img: "https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvis/2023/06/26/169/299dc2dd-470e-450f-adbe-63efacaa4526_273x273_90.jpg",
+                        name: "",
+                        biaoqian: "新品上市",
+                        jiange: 33,
+                        cengmaijia: 219,
+                        zhekou: "1.5折",
+                        kuncun: 9,
+                        goumai: 1,
+                        pingjia: "【通勤日常装】2023夏季简约气质百搭套头T恤显瘦舒适短袖",
+                        shijain: "",
+                        check: false
+                    },
+                    {
+                        id: 2,
+                        img: "https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvis/2023/06/13/41/29f31dd7-2778-45c6-88da-df79e6a6dbcd_273x273_90.jpg",
+                        name: "",
+                        biaoqian: "",
+                        jiange: 68,
+                        cengmaijia: 259,
+                        zhekou: "2.6折",
+                        kuncun: 79,
+                        goumai: 1,
+                        pingjia: "纯欲独特别致设计感翻领短款polo领针织衫女夏季短袖t恤",
+                        shijain: "",
+                        check: false
+                    },
+                    {
+                        id: 3,
+                        img: "https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvis/107880/2023/0607/188/fc8b1b70-83a6-4b45-b199-4b02c1fd2ba5_273x273_90.jpg",
+                        name: "",
+                        biaoqian: "",
+                        jiange: 84,
+                        cengmaijia: 599,
+                        zhekou: "1.4折",
+                        kuncun: 59,
+                        goumai: 1,
+                        pingjia: "【闪闪好气质】2023新款夏季空气感轻薄透气短袖针织衫女T恤",
+                        shijain: "",
+                        check: false
+                    },
+                    {
+                        id: 4,
+                        img: "https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvis/607896/2022/0526/168/f2efb3d8-e4b5-429c-9538-1ea927ec29b3_273x273_90.jpg",
+                        name: "",
+                        biaoqian: "",
+                        jiange: 66,
+                        cengmaijia: 310,
+                        zhekou: "2.1折",
+                        kuncun: 89,
+                        goumai: 1,
+                        pingjia: "秋季上新开衫女式外套简约时尚百搭舒适纯色女装上衣长袖女针织衫",
+                        shijain: "",
+                        check: false
+                    }, {
+                        id: 5,
+                        img: "https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvis/614757/2023/0420/55/171b0785-49d0-45fa-8c25-bb02f700fee6_273x273_90.jpg",
+                        name: "",
+                        biaoqian: "",
+                        jiange: 59,
+                        cengmaijia: 209,
+                        zhekou: "2.8折",
+                        kuncun: 29,
+                        goumai: 1,
+                        pingjia: "v领针织衫女2023新款气质百搭短袖t恤休闲简约夏季女装上衣",
+                        shijain: "",
+                        check: false
+                    },
+                    {
+                        id: 6,
+                        img: "https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvis/614757/2023/0629/18/9bd19257-2cb4-4c38-827f-96885afde10f_273x273_90.jpg",
+                        name: "",
+                        biaoqian: "",
+                        jiange: 69,
+                        cengmaijia: 249,
+                        zhekou: "2.8折",
+                        kuncun: 69,
+                        goumai: 1,
+                        pingjia: "女式t恤2023新款时尚条纹针织衫气质百搭圆领套头上衣高级感",
+                        shijain: "",
+                        check: false
+                    },
+                    {
+                        id: 7,
+                        img: "https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvis/610264/2023/0511/184/c67ffdcf-5062-4e38-9ad1-edc925a9983f_273x273_90.jpg",
+                        name: "",
+                        biaoqian: "",
+                        jiange: 129,
+                        cengmaijia: 469,
+                        zhekou: "2.8折",
+                        kuncun: 59,
+                        goumai: 1,
+                        pingjia: "【双曲冰麻线衫】2023春季新款圆领撞色格纹提花中袖针织衫女上衣",
+                        shijain: "",
+                        check: false
+                    },
+                    {
+                        id: 8,
+                        img: "https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvis/2022/01/25/115/2f8af7f1-65d5-4f75-8373-6a5f8827ad8f_273x273_90.jpg",
+                        name: "",
+                        biaoqian: "",
+                        jiange: 67.5,
+                        cengmaijia: 349,
+                        zhekou: "1.9折",
+                        kuncun: 39,
+                        goumai: 1,
+                        pingjia: "夏季拼色设计感打底衫薄款休闲百搭女款针织衫无袖宽松显瘦",
+                        shijain: "",
+                        check: false
+                    },
+                ],
+                obj1: [],
+            },
+            methods: {
+                shangpin(index) {
+                    let obj2 = {};
+                    obj2 = this.obj[index];
+                    const isAdded = this.obj1.find(item => item.id === obj2.id);
+                    if (isAdded) {
+                        isAdded.goumai++
+                        isAdded.kuncun--
+                    } else {
+                        this.obj1.push(obj2)
+                    }
+                },
+                shanchu(index) {
+                    if (confirm('你确认删除这件商品吗?')) {
+                        this.obj[index].kuncun += this.obj1[index].goodCount;
+                        this.obj1.splice(index, 1);
+                    }
+                },
+                shuliangjian(index) {
+                    // console.log(this.obj1[index].goumai--);
+                    if (this.obj1[index].goumai == 1) {
+                        this.obj1.splice(index, 1);
+                    } else {
+                        this.obj1[index].goumai--
+                        this.obj1[index].kuncun++
+                        this.obj[index].goumai--
+                        this.obj[index].kuncun++
+                    }
+                },
+                shuliangjia(index) {
+                    this.obj1[index].goumai++
+                    this.obj1[index].kuncun--
+                    this.obj[index].goumai++
+                    this.obj[index].kuncun--
+                },
+                xuanzhong(index) {
+                    this.obj1[index].check = !this.obj1[index].check;
+                    if (this.obj1[index].check == true) {
+                        console.log(this.obj1[index].jiange);
+                        this.obj1[index].shijian = this.obj1[index].jiange * this.obj1[index].goumai
+
+                        console.log();
+                    }
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

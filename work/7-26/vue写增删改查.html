@@ -212,6 +212,23 @@
             event.preventDefault();
             $("#box1").css("display", "none");
         })
+
+
+
+
+        let arr = "1234321";
+        let ar = arr.length / 2
+        aq1 = arr.slice(0, ar + 1) //1234
+        aq2 = arr.slice(ar, arr.length) //4321
+        var aq3 = ""
+        for (var i = aq2.length - 1; i >= 0; i--) {
+            aq3 += aq2[i]
+        }
+        if(aq3==aq1){
+            console.log("是回文字符");
+        }else{
+            console.log("不是回文");
+        }
     </script>
 </body>
 
