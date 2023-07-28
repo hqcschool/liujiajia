@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../common/vue.js"></script>
+</head>
+<style>
+    .jichuyangshi {
+        width: 400px;
+        height: 250px;
+        border: 2px solid red;
+        background-color: rgb(78, 158, 131);
+    }
+
+    .bg {
+        background-color: antiquewhite;
+    }
+
+    .a {
+        color: red;
+        background-color: aqua;
+    }
+
+    .a2 {
+        color: rgb(117, 65, 65);
+        background-color: rgb(35, 83, 83);
+    }
+
+    .a3 {
+        color: rgb(10, 139, 122);
+        background-color: rgb(186, 0, 43);
+    }
+</style>
+
+<body>
+    <div id="app">
+        <div :class="jichu">{{info}}</div>
+        <!-- jichu这里是解析的变量 -->
+        <button @click="change">点击</button>
+        <div :class="arr">{{info}}</div>
+        <div :class="jichu1">{{info}}</div>
+        <div class="b jichuyangshi a"></div>
+        <div class="a jichuyangshi b"></div>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                //页面渲染的内容
+                info: "今天又社评的一天",
+                //class为jichu的里面的样式
+                jichu: "jichuyangshi a",
+                //class为jichu1的样式当为false时不启用该样式
+                arr: ["a", "jichuyangshi"],
+                flag: true,
+            },
+            methods: {
+                change() {
+                    //div颜色切换,用字符串
+                    let thisClass = this.jichu.split(" ");
+                    this.jichu = thisClass.includes("a") ? "jichuyangshi a2" : "jichuyangshi a3";
+                    //div颜色切换,用数组
+                    let index = this.arr.indexOf("a");
+                    if (index > -1) {
+                        this.arr.splice(index, 1, "a2");
+                    } else {
+                        index = this.arr.indexOf("a2");
+                        this.arr.splice(index, 1, "a")
+                    }
+                    //div颜色切换,用对象
+                    // this.jichu1.a = !this.jichu1.a;
+                    // this.jichu1.a2 = !this.jichu1.a2;
+                    // this.jichu1.a3 = !this.jichu1.a3;
+                    this.flag = !this.flag;
+                }
+            },
+            computed: {
+                jichu1() {
+                    return {
+                        jichuyangshi: true,
+                        a: this.flag,
+                        a2: !this.flag,
+                    }
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

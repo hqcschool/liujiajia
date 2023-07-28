@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../common/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <h1 v-if="flag">尼古拉</h1> -->
+        <ul>
+            <li v-for="(item,index) in obj " :key="index">
+                <a>{{item.id}}</a>
+                <a>{{item.name}}</a>
+                <button>删除</button>
+            </li>
+        </ul>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                // flag: true,
+                obj: [
+                    {
+                        id: 1,
+                        name: "aaa"
+                    },
+                    {
+                        id: 2,
+                        name: "aaa"
+                    },
+                    {
+                        id: 3,
+                        name: "aaa"
+                    },
+                ]
+            },
+            methods: {},
+            computed: {},
+        });
+    </script>
+</body>
+
+</html>

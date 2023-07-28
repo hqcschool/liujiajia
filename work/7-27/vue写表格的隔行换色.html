@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../common/vue.js"></script>
+    <script src="../../common/jQuery/jquery-3.7.0.js"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .app1 {
+        width: 70%;
+        height: 100%;
+        padding: 30px;
+        border-radius: 25px;
+        position: relative;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        /* background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%); */
+    }
+
+    .table1 thead tr:nth-child(1) {
+        background-color: rgb(134, 183, 190);
+    }
+
+    /* .table1 tr:first-child {
+        background-color: #ffecd2;
+    } */
+
+    .table1 tbody tr {
+        background-color: rgb(231, 196, 208);
+    }
+
+    .table1 tbody tr:nth-child(2n) {
+        background-color: #c5ccc8;
+    }
+
+    .table1 tbody tr:hover {
+        background-color: #fcb69f;
+    }
+
+    .box1 {
+        width: 250px;
+        text-align: center;
+        height: 180px;
+        background-color: #ff9a9e;
+        border-radius: 25px;
+        padding: 20px;
+        display: inline-block;
+    }
+
+    #box2 {
+        width: 250px;
+        height: 180px;
+        border-radius: 25px;
+        padding: 20px;
+        background-color: #ff9a9e;
+        text-align: center;
+        float: right;
+        line-height: 60px;
+    }
+
+    .table1 th,
+    .table1 td {
+        text-align: center;
+        width: 200px;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .but1 {
+        background-image: linear-gradient(90deg, #ffecd2 0%, #fcb69f 100%);
+        border-color: white;
+        padding: 5px 10px;
+        border-radius: 8px;
+        margin: 5px;
+    }
+
+    input {
+        padding: 5px 8px;
+        border-radius: 15px;
+        margin: 8px;
+    }
+
+    .table1 {
+        width: 100%;
+        height: 100%;
+        border-radius: 5px;
+    }
+</style>
+
+<body>
+    <div id="app" :class="app">
+        <form action="#" name="carsare" :class="box1">
+            I D:<input type="text" v-model="id" id="id" name="id"><br>
+            姓名:<input type="text" v-model="name" id="name" name="name"><br>
+            年龄:<input type="text" v-model="age" id="age" name="age"><br>
+            <button :class="but" @click="tijiao()" v-show="true">提交</button>
+            <button :class="but" @click="quxiao()">取消</button>
+        </form>
+        <div id="box2">
+            <select name="orderName" id="select">
+                <option value="id">编号</option>
+                <option value="age">年龄</option>
+            </select><br>
+            <select name="orderBy" id="select1">
+                <option value="asc">升序</option>
+                <option value="desc">降序</option>
+            </select><br>
+            <button :class="but" id="pai" @click="pai()">排序</button>
+        </div>
+        <table :class="quan" border="3" cellspacing="1" style="border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th><input type="checkbox"></th>
+                    <th>编号</th>
+                    <th>名字</th>
+                    <th>年龄</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tr :class="cha" v-for="(item,index) in obj" :key="index">
+                <td><input type="checkbox"></td>
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.age}}</td>
+                <td>
+                    <button :class="but" @click="change1(index)">删除</button>
+                    <button :class="but" @click="change2(index)">上移</button>
+                    <button :class="but" @click="change3(index)">下移</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                // xiu: false,
+                // tijiao: true,
+                quan: "table1",
+                app: "app1",
+                cha: "jisi",
+                box1: "box1",
+                but: "but1",
+                obj: [
+                    {
+                        id: 1,
+                        name: "又",
+                        age: "13",
+                    },
+                    {
+                        id: 3,
+                        name: "一",
+                        age: "15",
+                    },
+                    {
+                        id: 5,
+                        name: "个",
+                        age: "11",
+                    },
+                    {
+                        id: 7,
+                        name: "实",
+                        age: "18",
+                    },
+                    {
+                        id: 2,
+                        name: "验",
+                        age: "20",
+                    },
+                    {
+                        id: 4,
+                        name: "对",
+                        age: "29",
+                    },
+                    {
+                        id: 6,
+                        name: "象",
+                        age: "9",
+                    },
+                ],
+                id: "",
+                name: "",
+                age: "",
+            },
+            methods: {
+                //取消按钮
+                quxiao() {
+                    event.preventDefault();
+                    vm.showButton = false;
+                },
+                //提交按钮
+                tijiao() {
+                    event.preventDefault();
+                    let data = {
+                        id: $("#id").val(),
+                        name: $("#name").val(),
+                        age: $("#age").val(),
+                    }
+                    console.log(data);
+                    this.obj.push(data)
+                    console.log(this.obj);
+                    this.id = "";
+                    this.name = "";
+                    this.age = "";
+                },
+                //删除
+                change1(index) {
+                    if (confirm("确认删除")) {
+                        this.obj.splice(index, 1);
+                    }
+                },
+                //上移
+                change2(index) {
+                    if (index == 0) { } else {
+                        let item = this.obj
+                        // item.splice(index - 1, 1, ...item.splice(index, 1, item[index - 1]))
+                        var ttt = item[index];
+                        var rrr = item[index - 1]
+                        item.splice(index - 1, 1, ttt)
+                        item.splice(index, 1, rrr)
+                    }
+                },
+                //下移
+                change3(index) {
+                    let item = this.obj
+                    item.splice(index, 1, ...item.splice(index + 1, 1, item[index]))
+                },
+                pai() {
+                    var options = $("#select option:selected");
+                    console.log(options.val());
+                    console.log(options.text());
+                    var options1 = $("#select1 option:selected")
+                    console.log(options1.val());
+                    if (options.val() == "id" && options1.val() == "desc") {
+                        this.obj.sort((a, b) => {
+                            return a.id - b.id
+                        })
+                    } else if (options.val() == "id" && options1.val() == "asc") {
+                        this.obj.sort((a, b) => {
+                            return b.id - a.id
+                        })
+                    } else if (options.val() == "age" && options1.val() == "desc") {
+                        this.obj.sort((a, b) => {
+                            return a.age - b.age
+                        })
+                    } else if (options.val() == "age" && options1.val() == "asc") {
+                        this.obj.sort((a, b) => {
+                            return b.age - a.age
+                        })
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+
+</html>
+
+<!-- 日报
+今日学习:监听属性 class与style绑定 条件渲染
+今日任务:完成(40%)
+今日问题:无
+单词:v-if v-show -->

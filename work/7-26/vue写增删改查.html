@@ -52,6 +52,19 @@
 
         tr {
             height: 50px;
+            background-color: #fcb69f;
+        }
+
+        tbody tr:hover {
+            background-color: bisque;
+        }
+
+        tbody tr {
+            background-color: rgb(173, 226, 209);
+        }
+
+        tr:nth-child(2n) {
+            background-color: #c5ccc8;
         }
 
         th {
@@ -92,7 +105,6 @@
             <button id="xiugai" @click="xiu()">修改</button>
             <button id="tijiao" @click="tijiao()">提交</button>
             <button id="quxiao">取消</button>
-
         </form>
         <div id="box">
             <table border="1">
@@ -135,8 +147,8 @@
                 name: "",
                 age: "",
             },
-
             methods: {
+                //点击添加按钮
                 change() {
                     $("#box1").css("display", "block");
                     $("#xiugai").css("display", "none");
@@ -163,6 +175,7 @@
                     this.name = this.obj[index].name
                     this.age = this.obj[index].age
                 },
+                //点击修改按钮
                 xiu() {
                     event.preventDefault();
                     this.obj[this.index].id = this.id
@@ -178,7 +191,6 @@
                     this.name = this.obj[index].name
                     this.age = this.obj[index].age
                 },
-
                 //添加
                 tijiao() {
                     event.preventDefault();
@@ -187,7 +199,6 @@
                         name: $("#name").val(),
                         age: $("#age").val(),
                     }
-
                     console.log(data);
                     this.obj.push(data)
                     console.log(this.obj);
@@ -201,7 +212,6 @@
             event.preventDefault();
             $("#box1").css("display", "none");
         })
-
     </script>
 </body>
 
